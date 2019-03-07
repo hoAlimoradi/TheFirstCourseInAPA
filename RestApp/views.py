@@ -19,13 +19,22 @@ def factor_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'PUT'])
 def factor_detail(request, pk):
     try:
         invoice = Factor.objects.get(pk=pk)
     except Factor.DoesNotExist:
         return Response(status = status.HTTP_404_NOT_FOUND)
 
-    serializer = FactorSerializer(invoice)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        serializer = FactorSerializer(invoice)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = FactorSerializer(invoice, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
