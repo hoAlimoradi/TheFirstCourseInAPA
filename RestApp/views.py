@@ -19,7 +19,7 @@ def factor_list(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['GET', 'PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def factor_detail(request, pk):
     try:
         invoice = Factor.objects.get(pk=pk)
@@ -37,6 +37,9 @@ def factor_detail(request, pk):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    elif request.method == 'DELETE':
+        invoice.delete()
+        return Response(status = status.HTTP_204_NO_CONTENT)
 
 
 
