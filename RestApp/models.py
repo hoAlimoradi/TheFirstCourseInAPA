@@ -7,5 +7,5 @@ class Factor(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, default='')
-    total = models.DecimalField(max_digits=7, decimal_places=2)
+    total = models.DecimalField(max_digits=8, decimal_places=2)
     paid = models.DecimalField(max_digits=7, decimal_places=2)
