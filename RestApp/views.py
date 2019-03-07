@@ -24,7 +24,7 @@ def factor_detail(request, pk):
     try:
         invoice = Factor.objects.get(pk=pk)
     except Factor.DoesNotExist:
-        return Response(status = status.HTTP_404_NOT_FOUND)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = FactorSerializer(invoice)
@@ -36,5 +36,8 @@ def factor_detail(request, pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
 
 
